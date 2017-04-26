@@ -5,7 +5,7 @@ class CLArgs
 		filelist = []
 		args.each {  |arg|
 			arg = arg.strip
-			if (arg =~ /^--([a-zA-Z+0-9._\\\/:\s]+)=\"?([a-zA-Z+0-9._\\\/:\s\;]+)\"?/)  # match against "--key=value"
+			if (arg =~ /^--([a-zA-Z+0-9._\\\/:\s]+)=\"?([a-zA-Z+0-9._\-\\\/:\s\;]+)\"?/)  # match against "--key=value"
 				options = option_maker(options, $1, $2)
 			elsif (arg =~ /^--([a-zA-Z+0-9._\\\/:\s]+)/) # match agains "--key"
 				options = option_maker(options, $1, $2)
@@ -34,16 +34,22 @@ class CLArgs
 			value = [] unless value
 			value.push val.split(';').map(&:strip)
 			value.flatten!
+			value_formatted = []
+			value.each {  |e|
+				e = e.to_i if e =~ /^(\s+)?\-?\d+$/
+				value_formatted.push e
+			}
+			value = value_formatted
 			value = value[0] if value.length == 1
-			value
+			value.dup
 		elsif val == 'true'
 			true
 		elsif val == 'false'
 			false
-		elsif val =~ /^\d+$/
+		elsif val =~ /^\s+?\-?\d+$/
 			val.to_i
 		else
-			val
+			val.dup
 		end
 		return options
 	end
