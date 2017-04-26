@@ -31,7 +31,7 @@ describe CLArgs do
 			options.should be == { :key => ["v1", "v2"] }
 		end
 		it "multiple key-values are provided with multiple values" do
-			options, files = CLArgs.parse ["--k1=v1;", " -- k2 =2; -3; ", "  -- k3 = v4 ;  ", " --k4 = 23  ",  " --  k5 =   -23" ]
+			options, files = CLArgs.parse ["--k1=v1;", " -- k2 =2; -3; ", "  -- k3 = v4 ;  ", " --k4=23  ",  " --  k5 =   -23" ]
 			files.should be_empty
 			options.should be == { :k1 => "v1", :k2 => [ 2, -3 ], :k3 => "v4", :k4 => 23, :k5 =>-23 }
 		end

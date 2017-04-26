@@ -46,7 +46,7 @@ class CLArgs
 			true
 		elsif val == 'false'
 			false
-		elsif val =~ /^\s+?\-?\d+$/
+		elsif val =~ /^(\s+)?\-?\d+$/
 			val.to_i
 		else
 			val.dup
