@@ -17,9 +17,9 @@ describe CLArgs do
 		it "single key-value is provided" do
 			arg = "--key=value"
 			arg = arg.freeze
-			options, files = CLArgs.parse [arg]
+			options, files = CLArgs.parse ["a", "", "  ", arg]
 
-			files.should be_empty
+			files.should be == ["a"]
 			options.should be == { :key => "value" }
 			# check against freeze
 			options[:key] += "_add"

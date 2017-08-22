@@ -13,6 +13,8 @@ class CLArgs
 			filelist << arg
 			end
 		}
+
+		filelist.reject!(&:empty?)
 		return options, filelist
 	end
 
